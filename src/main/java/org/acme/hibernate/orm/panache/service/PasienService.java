@@ -11,7 +11,7 @@ public class PasienService {
 
     @Transactional
     public JsonObject updateNama(String namaLama, String namaBaru){
-    Pasien.update("nama = ?1 where nama = ?2", namaLama, namaBaru);
+    Pasien.update("nama = ?1 where nama = ?2", namaBaru, namaLama);
     return new JsonObject();
     }
 }

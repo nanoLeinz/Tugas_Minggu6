@@ -36,8 +36,5 @@ public class Pasien extends PanacheEntityBase {
 
     @Column(length = 50)
     public String nama_ayah;
-
-    @Column
-    public String created_at;
 }
 

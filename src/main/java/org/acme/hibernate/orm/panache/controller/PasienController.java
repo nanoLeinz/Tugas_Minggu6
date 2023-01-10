@@ -27,17 +27,16 @@ public class PasienController {
     @POST
     @Transactional
     public Pasien list(JsonObject payload) {
-        Pasien pasiena = new Pasien();
-        pasiena.nama = payload.getString("nama");
-        pasiena.no_bpjs = payload.getString("no_bpjs");
-//        pasien.nik = payload.getString("nik");
-//        pasien.gender = payload.getString("gender");
-//        pasien.status = payload.getString("status");
-//        pasien.nama_ibu = payload.getString("nama_ibu");
-//        pasien.nama_ayah = payload.getString("nama_ayah");
-//        pasien.created_at = payload.getString("created_at");
-        pasiena.persist();
-        return pasiena;
+        Pasien pasien = new Pasien();
+        pasien.nama = payload.getString("nama");
+        pasien.no_bpjs = payload.getString("no_bpjs");
+        pasien.nik = payload.getString("nik");
+        pasien.gender = payload.getString("gender");
+        pasien.status = payload.getString("status");
+        pasien.nama_ibu = payload.getString("nama_ibu");
+        pasien.nama_ayah = payload.getString("nama_ayah");
+        pasien.persist();
+        return pasien;
     }
 
     @DELETE
@@ -47,16 +46,25 @@ public class PasienController {
         return new JsonObject();
     }
 
-    @PATCH
+    @PUT
     @Transactional
     public JsonObject update(@QueryParam("nama") String nama,
                              @QueryParam("no_bpjs") String no_bpjs,
                              @QueryParam("nik") String nik,
-                             @QueryParam("nama_ibu") String nama_ibu
+                             @QueryParam("nama_ibu") String nama_ibu,
+                             @QueryParam("gender") String gender,
+                             @QueryParam("status") String status,
+                             @QueryParam("nama_ayah") String nama_ayah,
+                             @QueryParam("id") String isid
     ) {
-        Pasien.update("nama = ?1, nama_ibu = ?2 where nik = ?3 AND no_bpjs = ?4", nama, nama_ibu, nik, no_bpjs );
+        Pasien.update("nama = ?1, nama_ibu = ?2, nik = ?3, no_bpjs = ?4, gender = ?5, status = ?6, nama_ayah = ?7 where id = ?8", nama, nama_ibu, nik, no_bpjs,gender,status,nama_ayah,isid );
         return new JsonObject();
     }
 
+    @PATCH
+    public JsonObject update(@QueryParam("namalama") String namaLama, @QueryParam("namabaru") String namaBaru) {
+        pasienService.updateNama(namaLama,namaBaru);
+        return new JsonObject();
+    }
 
 }
